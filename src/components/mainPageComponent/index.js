@@ -21,7 +21,6 @@ function MainPage() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <div class="d-flex align-items-center justify-content-start">
-                        <a class="text-reset me-3 nav-item nav-link" href="#">Account</a>
                         <a class="nav-link me-3 nav-item nav-link" href="#">Logout</a>
                 </div>
             </div>

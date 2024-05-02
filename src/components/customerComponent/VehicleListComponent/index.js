@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import "./index.css"
 
-function OrderList() {
+function VehicleList() {
 
   return (
         <table class="table align-middle mb-0 bg-white">
@@ -86,4 +86,4 @@ function OrderList() {
 }
 
 
-export default OrderList;
+export default VehicleList;
