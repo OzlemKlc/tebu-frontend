@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 
 function App() {
 
-  let [userInfo, setUserInfo] = useState(undefined);
+  const [userInfo, setUserInfo] = useState(undefined);
 
   window.userInfo = userInfo;
   window.setUserInfo = setUserInfo;
@@ -18,7 +18,9 @@ function App() {
   }, []);
 
   return (
-    userInfo == undefined ? <Login></Login> : <MainPage></MainPage>
+    userInfo == undefined ? <Login></Login> : (
+      <MainPage></MainPage>
+    )
   );
 }
 

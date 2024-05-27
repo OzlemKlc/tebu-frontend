@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
 import {
-  MDBContainer
+  MDBContainer,
+  MDBBtnGroup,
+  MDBBtn
 }
 from 'mdb-react-ui-kit';
-import CustomerPage from '../customerComponent';
+import WorkerPage from '../employeeComponent';
 
 import "./index.css"
 
 function MainPage() {
+    const [goBackFunction, setGoBackFunction] = useState(null);
+    window.goBackFunction = goBackFunction;
+    window.setGoBackFunction = (f) => {
+        setGoBackFunction(() => (e) => {
+            f(e);
+            setGoBackFunction(null);
+        })
+    }
 
   return (
     <MDBContainer className="p-4 my-5 d-flex flex-column w-100">
-        <p></p>
+        {
+            goBackFunction == undefined ? <p></p> :
+                <MDBBtnGroup className='justify-content-between' toolbar aria-label='Toolbar with button groups'>
+                    <div></div>
+                    <MDBBtn onClick={(e) => (goBackFunction(e))}>Go Back</MDBBtn>
+                </MDBBtnGroup>
+        }
     <nav class="navbar navbar-expand-lg fixed-top flex-column  d-flex" style={{backgroundColor: "white", margin: "auto"}}>
         <div class="container-fluid w-75">
             <a class="navbar-brand mt-2 mt-lg-0" href="#">
@@ -28,7 +44,7 @@ function MainPage() {
     </nav>
 
     <p></p>
-    <CustomerPage></CustomerPage>
+    <WorkerPage></WorkerPage>
 
       <footer class=" fixed-bottom border-top d-flex" style={{margin:"auto"}} >
         <div class="container p-2 pb-0">

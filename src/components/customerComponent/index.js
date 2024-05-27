@@ -24,7 +24,7 @@ function CustomerPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActivePage, setMainActivePage] = useState("NewAddress"); // Tabs, NewOrder, NewAddress, NewVehicle
+  const [mainActivePage, setMainActivePage] = useState("Tabs"); // Tabs, NewOrder, NewAddress, NewVehicle
   
   window.currentCallbackPage = "Tabs"; //Tabs, NewOrder
   window.callbackPageDate = {};
