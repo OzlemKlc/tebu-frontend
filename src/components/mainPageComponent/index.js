@@ -6,6 +6,10 @@ import {
 }
 from 'mdb-react-ui-kit';
 import WorkerPage from '../employeeComponent';
+import CustomerPage from "../customerComponent"
+import AdminPage from "../adminComponent"
+
+import { logout } from '../../api/session';
 
 import "./index.css"
 
@@ -17,6 +21,10 @@ function MainPage() {
             f(e);
             setGoBackFunction(null);
         })
+    }
+
+    const onLogoutClick = () => {
+        logout(window.setUserInfo)
     }
 
   return (
@@ -37,14 +45,20 @@ function MainPage() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <div class="d-flex align-items-center justify-content-start">
-                        <a class="nav-link me-3 nav-item nav-link" href="#">Logout</a>
+                        <a onClick={onLogoutClick}class="nav-link me-3 nav-item nav-link" href="#">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <p></p>
-    <WorkerPage></WorkerPage>
+    {
+        window.userInfo.userRole == "Admin" ? 
+        <AdminPage></AdminPage> :
+        window.userInfo.userRole == "Worker" ?
+        <WorkerPage></WorkerPage> :
+        <CustomerPage></CustomerPage>
+    }
 
       <footer class=" fixed-bottom border-top d-flex" style={{margin:"auto"}} >
         <div class="container p-2 pb-0">

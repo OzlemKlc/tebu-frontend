@@ -15,9 +15,22 @@ from 'mdb-react-ui-kit';
 
 import "./index.css"
 
+import { login } from '../../api/session';
+
 function Login() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');;
+
+
+
+
+  const onLoginClick = () => {
+    var phone = document.getElementById("login1");
+    var password = document.getElementById("login2");
+
+    login(phone.value, password.value, window.setUserInfo)
+  };
+
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -55,11 +68,11 @@ function Login() {
         <p></p>
         <p></p>
 
-          <MDBInput wrapperClass='mb-4' label='Email address or Phone Number' id='form1' type='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
+          <MDBInput wrapperClass='mb-4' label='Phone Number' id='login1' type='email'/>
+          <MDBInput wrapperClass='mb-4' label='Password' id='login2' type='password'/>
 
 
-          <MDBBtn className="mb-4 w-100">Sign in</MDBBtn>
+          <MDBBtn className="mb-4 w-100" onClick={onLoginClick}>Sign in</MDBBtn>
 
         </MDBTabsPane>
 

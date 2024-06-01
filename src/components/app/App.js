@@ -4,6 +4,8 @@ import MainPage from '../mainPageComponent'
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie'
 
+import * as sessionApi from "../../api/session/index"
+
 function App() {
 
   const [userInfo, setUserInfo] = useState(undefined);
@@ -12,9 +14,8 @@ function App() {
   window.setUserInfo = setUserInfo;
 
   useEffect(() => {
-    setUserInfo(Cookies.get("userInfo"));
-
-    setTimeout(() => {setUserInfo("")}, 10000)
+    //setUserInfo(Cookies.get("userInfo"));
+    sessionApi.getCurrentUser(setUserInfo)
   }, []);
 
   return (
