@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     MDBBtn,
   MDBCard,
@@ -10,13 +10,37 @@ import {
 
 import "./index.css"
 
+import {changeOrderStatus} from "../../../api/order/index"
+
+const statuses = {
+  WaitingToGetAccepted : 0,
+  Accepted : 1,
+  GoingToCenter : 2,
+  Arrived : 3,
+  InOperation : 4,
+  Drying : 5,
+  WayBack : 6,
+  Delivired : 7
+}
+
 export default function OrderPage() {
+  const [randomKey,setRandomKey] = useState(1);
+
+  const changestatusButton = (data) => {
+    console.log("ééééééééééééééééé", data);
+
+
+    window.currentOrder = data;
+
+    setRandomKey(randomKey + 1);
+  }
+
   return (
     <>
-      <section className="" style={{ backgroundColor: "#eee" }}>
+      <section key={randomKey} className="" style={{ backgroundColor: "#eee" }}>
         <MDBContainer className="h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
-            <MDBCol lg="8" xl="6">
+            <MDBCol >
               <MDBCard className="border-top border-bottom border-3 border-color-custom">
                 <MDBCardBody className="p-5">
                   <p className="lead fw-bold mb-1" style={{ color: "rgb(60, 115, 206)" }}>
@@ -26,54 +50,25 @@ export default function OrderPage() {
                   <MDBRow>
                     <MDBCol className="mb-1">
                       <p className="small text-muted mb-1">Car Owner</p>
-                      <p>Murat Bozkurt <br/>0 551 121 76 96</p>
+                      <p>{window.currentOrder.customer.name + " " + window.currentOrder.customer.surname} <br/>{window.currentOrder.customer.phoneNumber}</p>
                     </MDBCol>
                     <MDBCol className="mb-1">
-                      <p className="small text-muted mb-1">Valet</p>
-                      <p>Hakkı Gümüşlü <br/>0 555 122 77 77</p>
+                        <p className="small text-muted mb-1">Valet</p>
+                        {
+                          window.currentOrder.worker == undefined ? <><p>Waiting<br/>Please change status to take charge of this order.</p></> :
+                          <p>{window.currentOrder.worker.name + " " + window.currentOrder.worker.surname}<br/>{window.currentOrder.worker.phoneNumber}</p>
+                        }
                     </MDBCol>
                   </MDBRow>
 
                   <MDBRow>
                     <MDBCol className="mb-1">
                       <p className="small text-muted mb-1">Date</p>
-                      <p>10 April 2021</p>
+                      <p>{window.currentOrder.creationDate}</p>
                     </MDBCol>
                     <MDBCol className="mb-1">
                       <p className="small text-muted mb-1">Order No.</p>
-                      <p>012j1gvs356c</p>
-                    </MDBCol>
-                  </MDBRow>
-
-                  <div
-                    className="mx-n5 px-5 py-3"
-                    style={{ backgroundColor: "#f2f2f2" }}
-                  >
-                    <MDBRow>
-                      <MDBCol md="8" lg="9">
-                        <p>Washing etc</p>
-                      </MDBCol>
-                      <MDBCol md="4" lg="3">
-                        <p>£299.99</p>
-                      </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                      <MDBCol md="8" lg="9">
-                        <p className="mb-0">Service</p>
-                      </MDBCol>
-                      <MDBCol md="4" lg="3">
-                        <p className="mb-0">£33.00</p>
-                      </MDBCol>
-                    </MDBRow>
-                  </div>
-                  <MDBRow className="my-3">
-                    <MDBCol md="4" className="offset-md-8 col-lg-3 offset-lg-9">
-                      <p
-                        className="lead fw-bold mb-0"
-                        style={{ color: "rgb(60, 115, 206)" }}
-                      >
-                        £262.99
-                      </p>
+                      <p>{window.currentOrder.id}</p>
                     </MDBCol>
                   </MDBRow>
 
@@ -90,37 +85,101 @@ export default function OrderPage() {
                         <ul className="list-inline items d-flex justify-content-between">
                           <li className="list-inline-item items-list">
                             <MDBBtn
-                              className="py-1 px-2 rounded "
+                              className="py-1 px-2 rounded"
                               style={{ backgroundColor: "rgb(60, 115, 206)" }}
                             >
-                              Ordered
+                              Waiting
                             </MDBBtn>
                           </li>
                           <li className="list-inline-item items-list">
                             <MDBBtn
-                              className="py-1 px-2 rounded "
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status] < 1 ? "not-happened" : "")}
                               style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "Accepted", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
                             >
-                              Shipped
+                              Accepted
                             </MDBBtn>
                           </li>
                           <li className="list-inline-item items-list">
                             <MDBBtn
-                              className="py-1 px-2 rounded "
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status]  < 2 ? "not-happened" : "")}
                               style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "GoingToCenter", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
                             >
-                              On the way
+                              Going To Center
                             </MDBBtn>
                           </li>
-                          <li
-                            className="list-inline-item items-list text-end"
-                            style={{ marginRight: "-8px" }}
-                          >
-                            <MDBBtn 
-                                className="py-1 px-2 rounded not-happened"  
-                                style={{ marginRight: "-8px" }}
+                          <li className="list-inline-item items-list">
+                            <MDBBtn
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status]  < 3 ? "not-happened" : "")}
+                              style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "Arrived", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
                             >
-                                Delivered
+                                Arrived
+                            </MDBBtn>
+                          </li>
+                          <li className="list-inline-item items-list">
+                            <MDBBtn
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status]  < 4 ? "not-happened" : "")}
+                              style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "InOperation", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
+                            >
+                              In Operation
+                            </MDBBtn>
+                          </li>
+                          <li className="list-inline-item items-list">
+                            <MDBBtn
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status]  < 5 ? "not-happened" : "")}
+                              style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "Drying", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
+                            >
+                              Drying
+                            </MDBBtn>
+                          </li>
+                          <li className="list-inline-item items-list">
+                            <MDBBtn
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status]  < 6 ? "not-happened" : "")}
+                              style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "WayBack", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
+                            >
+                              Way Back
+                            </MDBBtn>
+                          </li>
+                          <li className="list-inline-item items-list">
+                            <MDBBtn
+                              className={"py-1 px-2 rounded " + (statuses[window.currentOrder.status] < 7 ? "not-happened" : "")}
+                              style={{ backgroundColor: "rgb(60, 115, 206)" }}
+                              onClick={() => {
+                                changeOrderStatus(window.currentOrder.id, "Delivired", (data) => {
+                                  changestatusButton(data);
+                                })
+                              }}
+                            >
+                              Delivired
                             </MDBBtn>
                           </li>
                         </ul>

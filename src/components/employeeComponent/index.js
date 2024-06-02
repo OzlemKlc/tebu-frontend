@@ -20,8 +20,9 @@ function WorkerPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActiveEmployeePage, setmainActiveEmployeePage] = useState("OrderPage"); // Tabs, OrderPage
+  const [mainActiveEmployeePage, setmainActiveEmployeePage] = useState("Tabs"); // Tabs, OrderPage
   
+  window.setmainActiveEmployeePage = setmainActiveEmployeePage;
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -33,9 +34,6 @@ function WorkerPage() {
 
   return mainActiveEmployeePage == "Tabs" ? (
     <>
-
-      
-
       <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
         <MDBTabsItem>
           <MDBTabsLink onClick={() => handleJustifyClick('tab1')} active={justifyActive === 'tab1'}>

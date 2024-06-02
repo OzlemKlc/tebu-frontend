@@ -48,6 +48,16 @@ function OrderList() {
     setAllOrders([...(allOrders??[]), ...OrdersResponse??[]])
   }, [OrdersResponse])
 
+  const detailsPageButtonFunction = (e) => {
+    window.currentOrder = e;
+
+    window.setGoBackFunction(() => {
+        window.setmainActiveEmployeePage("Tabs");
+      });
+
+    window.setmainActiveEmployeePage("OrderPage");
+  }
+
   return (
                 <>
                 {allOrders?.length > 0 ? 
@@ -83,7 +93,7 @@ function OrderList() {
                                         }
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-link btn-sm btn-rounded">Details</button>
+                                        <button type="button" onClick={() => {detailsPageButtonFunction(e)}} class="btn btn-link btn-sm btn-rounded">Details</button>
                                     </td>
                                     </tr>
                                 )

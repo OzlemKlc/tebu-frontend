@@ -55,7 +55,7 @@ function changeOrderStatus(orderId, orderStatus, setState)
         })
     })
     .then(response => response.json())
-    .then(data => setState(data.user));
+    .then(data => setState(data));
 }
 
 export {

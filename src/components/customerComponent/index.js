@@ -24,7 +24,7 @@ function CustomerPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActiveCustomerPage, setmainActiveCustomerPage] = useState("Tabs"); // Tabs, NewOrder, NewAddress, NewVehicle
+  const [mainActiveCustomerPage, setmainActiveCustomerPage] = useState("Tabs"); // Tabs, NewOrder, NewAddress, NewVehicle, OrderPage
   
   const [currentActiveTab, setCurrentActiveTab] = useState(null);
 
