@@ -17,6 +17,7 @@ import VehicleList from "./VehicleListComponent"
 import NewAddressComponent from './NewAddressComponent';
 import NewOrderComponent from './NewOrderComponent'
 import NewVehicleComponent from './NewVehicleComponent'
+import OrderPage from './OrderPageComponent';
 
 import "./index.css"
 
@@ -136,7 +137,8 @@ function CustomerPage() {
   ) : 
   mainActiveCustomerPage == "NewOrder" ? <NewOrderComponent></NewOrderComponent> :
   mainActiveCustomerPage == "NewAddress" ? <NewAddressComponent></NewAddressComponent> : 
-  mainActiveCustomerPage == "NewVehicle" ? <NewVehicleComponent></NewVehicleComponent> 
+  mainActiveCustomerPage == "NewVehicle" ? <NewVehicleComponent></NewVehicleComponent> :
+  mainActiveCustomerPage == "OrderPage" ? <OrderPage></OrderPage>
   : <>AAAAA</>;
 }
 

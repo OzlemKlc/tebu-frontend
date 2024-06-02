@@ -52,10 +52,10 @@ function OrderList() {
     window.currentOrder = e;
 
     window.setGoBackFunction(() => {
-        window.setmainActiveEmployeePage("Tabs");
+        window.setmainActiveCustomerPage("Tabs");
       });
 
-    window.setmainActiveEmployeePage("OrderPage");
+    window.setmainActiveCustomerPage("OrderPage");
   }
 
   return (
