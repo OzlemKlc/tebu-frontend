@@ -11,20 +11,29 @@ import {
 }
 from 'mdb-react-ui-kit';
 
-import WorkerList from "./UserPageComponent"
-import OrderPage from "./UserListComponent"
+import WorkerPage from "./WorkerPageComponent"
+import WorkerList from "./WorkerListComponent"
+import Statistics from './statisticsComponent';
 
 import "./index.css"
 
-function WorkerPage() {
+function AdminPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActivePage, setMainActivePage] = useState("Tabs"); // Tabs, OrderPage
+  const [mainActiveAdminPage, setmainActiveAdminPage] = useState("Tabs"); // Tabs, WorkerPage
   
-  window.currentCallbackPage = "Tabs"; //Tabs, NewOrder
-  window.callbackPageDate = {};
+  
+  const newWorkerFunction = () => {
+    window.setGoBackFunction(() => {
+      window.setmainActiveAdminPage("Tabs");
+    });
 
+    window.setmainActiveAdminPage("WorkerPage");
+  }
+
+
+  window.setmainActiveAdminPage = setmainActiveAdminPage;
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
       return;
@@ -33,7 +42,7 @@ function WorkerPage() {
     setJustifyActive(value);
   };
 
-  return mainActivePage == "Tabs" ? (
+  return mainActiveAdminPage == "Tabs" ? (
     <>
       <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
         <MDBTabsItem>
@@ -54,7 +63,7 @@ function WorkerPage() {
         <img src="carwashers.jpg" class="img-fluid" alt="Wild Landscape" />
           <p></p>
           <div style={{display: "flex", justifyContent: "center"}}>
-          <MDBBtn className='me-1'>
+          <MDBBtn onClick={newWorkerFunction} className='me-1'>
             New Worker
           </MDBBtn>
           </div>
@@ -63,14 +72,14 @@ function WorkerPage() {
         </MDBTabsPane>
         <MDBTabsPane open={justifyActive === 'tab2'}>
         <img src="carwashers.jpg" class="img-fluid" alt="Wild Landscape" />
-          
+          <Statistics></Statistics>
           
         </MDBTabsPane>
       </MDBTabsContent>
       </>
   ) :
-  mainActivePage == "OrderPage" ? <OrderPage></OrderPage>
+  mainActiveAdminPage == "WorkerPage" ? <WorkerPage></WorkerPage>
   : <></>;
 }
 
-export default WorkerPage;
+export default AdminPage;

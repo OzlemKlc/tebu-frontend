@@ -5,7 +5,7 @@ import { apiAddress } from "../api_config"
 
 function createOrder(orderType, vehicleId, addressId, orderNote, setState)
 {
-    Fetch(apiAddress + "/api/Order/create-order", {
+    fetch(apiAddress + "/api/Order/create-order", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type":"application/json" },
@@ -22,7 +22,7 @@ function createOrder(orderType, vehicleId, addressId, orderNote, setState)
 
 function getCustomerOrders(count, pageIndex, setState)
 {
-    Fetch(apiAddress + "/api/Order/get-customer-orders?count=" + count +"&pageIndex=" + pageIndex, {
+    fetch(apiAddress + "/api/Order/get-customer-orders?count=" + count +"&pageIndex=" + pageIndex, {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type":"application/json" }
@@ -33,7 +33,7 @@ function getCustomerOrders(count, pageIndex, setState)
 
 function getWorkerOrders(count, pageIndex, setState)
 {
-    Fetch(apiAddress + "/api/Order/get-worker-orders?count=" + count +"&pageIndex=" + pageIndex, {
+    fetch(apiAddress + "/api/Order/get-worker-orders?count=" + count +"&pageIndex=" + pageIndex, {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type":"application/json" }
@@ -45,7 +45,7 @@ function getWorkerOrders(count, pageIndex, setState)
 
 function changeOrderStatus(orderId, orderStatus, setState)
 {
-    Fetch(apiAddress + "/api/Order/change-status", {
+    fetch(apiAddress + "/api/Order/change-status", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type":"application/json" },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MDBContainer,
   MDBTabs,
@@ -24,10 +24,20 @@ function CustomerPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActivePage, setMainActivePage] = useState("Tabs"); // Tabs, NewOrder, NewAddress, NewVehicle
+  const [mainActiveCustomerPage, setmainActiveCustomerPage] = useState("Tabs"); // Tabs, NewOrder, NewAddress, NewVehicle
   
-  window.currentCallbackPage = "Tabs"; //Tabs, NewOrder
-  window.callbackPageDate = {};
+  const [currentActiveTab, setCurrentActiveTab] = useState(null);
+
+  window.currentActiveTab = currentActiveTab;
+  window.setCurrentActiveTab = setCurrentActiveTab;
+
+
+  window.mainActiveCustomerPage = mainActiveCustomerPage;
+  window.setmainActiveCustomerPage = setmainActiveCustomerPage;
+  useEffect(() => {
+    if(window.currentActiveTab != null)
+      setJustifyActive(window.currentActiveTab);
+  }, [window.currentActiveTab]);
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -37,7 +47,33 @@ function CustomerPage() {
     setJustifyActive(value);
   };
 
-  return mainActivePage == "Tabs" ? (
+  const newOrderFunction = () => {
+
+    window.setGoBackFunction(() => {
+      window.setmainActiveCustomerPage("Tabs");
+      window.setCurrentActiveTab("tab1");
+    });
+
+    window.setmainActiveCustomerPage("NewOrder");
+  }
+  const newAddressFunction = () => {
+    window.setGoBackFunction(() => {
+      window.setmainActiveCustomerPage("Tabs");
+      window.setCurrentActiveTab("tab2");
+    });
+
+    window.setmainActiveCustomerPage("NewAddress");
+  }
+  const newVehicleFunction = () => {
+    window.setGoBackFunction(() => {
+      window.setmainActiveCustomerPage("Tabs");
+      window.setCurrentActiveTab("tab3");
+    });
+
+    window.setmainActiveCustomerPage("NewVehicle");
+  }
+
+  return mainActiveCustomerPage == "Tabs" ? (
     <div>
       <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
         <MDBTabsItem>
@@ -63,7 +99,7 @@ function CustomerPage() {
         <img src="Car-wash-owner.jpg" class="img-fluid" alt="Wild Landscape" />
           <p></p>
           <div style={{display: "flex", justifyContent: "center"}}>
-          <MDBBtn className='me-1'>
+          <MDBBtn onClick={newOrderFunction} className='me-1'>
             New Order
           </MDBBtn>
           </div>
@@ -74,7 +110,7 @@ function CustomerPage() {
         <img src="Address.jpeg" class="img-fluid" alt="Wild Landscape" />
           <p></p>
           <div style={{display: "flex", justifyContent: "center"}}>
-            <MDBBtn className='me-1'>
+            <MDBBtn onClick={newAddressFunction} className='me-1'>
             Register New Address
             </MDBBtn>
           </div>
@@ -86,7 +122,7 @@ function CustomerPage() {
         <img src="Vehicles.jpeg" class="img-fluid" alt="Wild Landscape" />
           <p></p>
           <div style={{display: "flex", justifyContent: "center"}}>
-            <MDBBtn className='me-1'>
+            <MDBBtn onClick={newVehicleFunction} className='me-1'>
               Register New Vehicle
             </MDBBtn>
             </div>
@@ -98,10 +134,10 @@ function CustomerPage() {
       </MDBTabsContent>
       </div>
   ) : 
-  mainActivePage == "NewOrder" ? <NewOrderComponent></NewOrderComponent> :
-  mainActivePage == "NewAddress" ? <NewAddressComponent></NewAddressComponent> : 
-  mainActivePage == "NewVehicle" ? <NewVehicleComponent></NewVehicleComponent> 
-  : <></>;
+  mainActiveCustomerPage == "NewOrder" ? <NewOrderComponent></NewOrderComponent> :
+  mainActiveCustomerPage == "NewAddress" ? <NewAddressComponent></NewAddressComponent> : 
+  mainActiveCustomerPage == "NewVehicle" ? <NewVehicleComponent></NewVehicleComponent> 
+  : <>AAAAA</>;
 }
 
 export default CustomerPage;

@@ -15,7 +15,7 @@ from 'mdb-react-ui-kit';
 
 import "./index.css"
 
-import { login } from '../../api/session';
+import { login, register } from '../../api/session';
 
 function Login() {
 
@@ -30,6 +30,16 @@ function Login() {
 
     login(phone.value, password.value, window.setUserInfo)
   };
+
+  const onRegisterClick = () => {
+    var name = document.getElementById("r11");
+    var surname = document.getElementById("r12");
+    var phone = document.getElementById("r13");
+    var email = document.getElementById("r14");
+    var password = document.getElementById("r15");
+
+    register(password.value, phone.value, email.value, name.value, surname.value, window.setUserInfo);
+  }
 
 
   const handleJustifyClick = (value) => {
@@ -78,17 +88,14 @@ function Login() {
 
         <MDBTabsPane open={justifyActive === 'tab2'}>
 
-          <MDBInput wrapperClass='mb-4' label='Name' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Phone Number' id='form1' type='tel'/>
-          <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password'/>
+          <MDBInput wrapperClass='mb-4' label='Name' id='r11' type='text'/>
+          <MDBInput wrapperClass='mb-4' label='Surname' id='r12' type='text'/>
+          <MDBInput wrapperClass='mb-4' label='Phone Number' id='r13' type='tel'/>
+          <MDBInput wrapperClass='mb-4' label='Email' id='r14' type='email'/>
+          <MDBInput wrapperClass='mb-4' label='Password' id='r15' type='password'/>
 
-          <div className='d-flex justify-content-center mb-4'>
-            <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I have read and agree to the terms' />
-          </div>
 
-          <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+          <MDBBtn className="mb-4 w-100" onClick={onRegisterClick}>Sign up</MDBBtn>
 
         </MDBTabsPane>
 

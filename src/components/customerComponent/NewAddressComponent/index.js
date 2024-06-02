@@ -12,47 +12,48 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+import { addAddress } from '../../../api/customer';
 
 import "./index.css"
 
 function NewAddressComponent() {
 
+  
+  const onRegisterClick = () => {
+    var name = document.getElementById("r11");
+    var fullAddress = document.getElementById("r12");
+    var city = document.getElementById("r13");
+    var district = document.getElementById("r14");
+
+    addAddress(name.value, fullAddress.value, city.value, district.value, (e) => {
+      window.goBackFunction(null);
+    });
+  }
+
 
   return (
-    <MDBContainer className="p-5  d-flex flex-column w-75 d-flex align-items-stretch">
-      <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
-        <MDBTabsItem>
-          <MDBTabsLink >
-            New Address
-          </MDBTabsLink>
-        </MDBTabsItem>
-      </MDBTabs>
-
-      <MDBTabsContent>
-
-        <MDBTabsPane open={true}>
-
+    <MDBContainer className='p-5 my-5 d-flex flex-column w-50 d-flex align-items-stretch'>
+      <MDBTabsContent >
         <p></p>
-        <p></p>
-        <p></p>
+          <div style={{display: "flex", justifyContent: "center"}}>
+          <MDBBtn className='me-1'>
+            NEW ADRESS
+          </MDBBtn>
+          </div>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Name' id='r11' type='text'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Full Address' id='r12' type='text'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='City' id='r13' type='text'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='District' id='r14' type='text'/>
+          <p></p>
 
-          <MDBInput wrapperClass='mb-4' label='Address Name' id='form1' />
-          <MDBInput wrapperClass='mb-4' label='City' id='form1' />
-          <MDBInput wrapperClass='mb-4' label='District' id='form1' />
-          <MDBInput wrapperClass='mb-4' label='Neighborhood' id='form1' />
-          <MDBInput wrapperClass='mb-4' label='Building Number' id='form2' />
-          <MDBInput wrapperClass='mb-4' label='Door Number' id='form2' />
-          <MDBInput wrapperClass='mb-4' label='Directions' id='form2' />
-
-          <MDBBtn className="mb-4 w-100">Save</MDBBtn>
-
-        </MDBTabsPane>
-
-
+          <MDBBtn className="mb-4 w-100" onClick={onRegisterClick}>CREATE</MDBBtn>
       </MDBTabsContent>
-
     </MDBContainer>
-  );
+) 
 }
 
 export default NewAddressComponent;

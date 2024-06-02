@@ -5,42 +5,42 @@ import { apiAddress } from "../api_config"
 
 function addAddress(name, fullAddress, city, district, setState)
 {
-    Fetch(apiAddress + "/api/Costumer/add-address", {
+    fetch(apiAddress + "/api/Costumer/add-address", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type":"application/json" },
         body: JSON.stringify({
-            name, 
-            fullAddress, 
-            city, 
-            district
+            name: name, 
+            fullAdress: fullAddress, 
+            city: city, 
+            district: district
         })
     })
     .then(response => response.json())
     .then(data => setState(data));
 }
 
-function addVehicle(name, model, year, brand, userId, setState)
+function addVehicle(name, model, year, brand, setState)
 {
-    Fetch(apiAddress + "/api/Costumer/add-address", {
+    fetch(apiAddress + "/api/Costumer/add-vehicle", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type":"application/json" },
         body: JSON.stringify({
-            name, 
-            model, 
-            year, 
-            brand, 
-            userId
+            name: name, 
+            model: model, 
+            year: year, 
+            brand: brand
         })
     })
-    .then(response => response.json())
+    .then(response => {console.log(response); return response.json();})
     .then(data => setState(data));
 }
 
 function getAddresses(setState)
 {
-    Fetch(apiAddress + "/api/Costumer/get-addresses", {
+    console.log("AAAAAAAAAAAAEEEEE",setState)
+    fetch(apiAddress + "/api/Costumer/get-addresses", {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type":"application/json" }
@@ -51,7 +51,7 @@ function getAddresses(setState)
 
 function getVehicles(setState)
 {
-    Fetch(apiAddress + "/api/Costumer/get-vehicles", {
+    fetch(apiAddress + "/api/Costumer/get-vehicles", {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type":"application/json" }

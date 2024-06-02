@@ -20,10 +20,8 @@ function WorkerPage() {
 
   const [justifyActive, setJustifyActive] = useState('tab1');
 
-  const [mainActivePage, setMainActivePage] = useState("OrderPage"); // Tabs, OrderPage
+  const [mainActiveEmployeePage, setmainActiveEmployeePage] = useState("OrderPage"); // Tabs, OrderPage
   
-  window.currentCallbackPage = "Tabs"; //Tabs, NewOrder
-  window.callbackPageDate = {};
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -33,7 +31,7 @@ function WorkerPage() {
     setJustifyActive(value);
   };
 
-  return mainActivePage == "Tabs" ? (
+  return mainActiveEmployeePage == "Tabs" ? (
     <>
 
       
@@ -60,7 +58,7 @@ function WorkerPage() {
       </MDBTabsContent>
       </>
   ) :
-  mainActivePage == "OrderPage" ? <OrderPage></OrderPage>
+  mainActiveEmployeePage == "OrderPage" ? <OrderPage></OrderPage>
   : <></>;
 }
 

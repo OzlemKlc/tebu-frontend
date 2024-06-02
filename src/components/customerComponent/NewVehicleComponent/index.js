@@ -13,41 +13,48 @@ import {
 from 'mdb-react-ui-kit';
 
 
+import { addVehicle } from "../../../api/customer/index"
+
 import "./index.css"
 
 function NewVehicleComponent() {
   
+  const onRegisterClick = () => {
+    var name = document.getElementById("r11");
+    var model = document.getElementById("r12");
+    var year = document.getElementById("r13");
+    var brand = document.getElementById("r14");
 
-  return <MDBContainer className="p-5  d-flex flex-column w-75 d-flex align-items-stretch">
-  <MDBTabs pills justify className='mb-3 d-flex flex-row justify-content-between'>
-    <MDBTabsItem>
-      <MDBTabsLink >
-        New Vehicle
-      </MDBTabsLink>
-    </MDBTabsItem>
-  </MDBTabs>
-
-  <MDBTabsContent>
-
-    <MDBTabsPane open={true}>
-
-    <p></p>
-    <p></p>
-    <p></p>
-
-      <MDBInput wrapperClass='mb-4' label='Vehicle Name' id='form1' />
-      <MDBInput wrapperClass='mb-4' label='Brand' id='form1' />
-      <MDBInput wrapperClass='mb-4' label='Model' id='form1' />
-      <MDBInput wrapperClass='mb-4' label='Car Notes' id='form2' />
-
-      <MDBBtn className="mb-4 w-100">Save</MDBBtn>
-
-    </MDBTabsPane>
+    addVehicle(name.value, model.value, parseInt(year.value), brand.value, (e) => {
+      window.goBackFunction(null);
+    });
+  }
 
 
-  </MDBTabsContent>
+  return (
+    <MDBContainer className='p-5 my-5 d-flex flex-column w-50 d-flex align-items-stretch'>
+      <MDBTabsContent >
+        <p></p>
+          <div style={{display: "flex", justifyContent: "center"}}>
+          <MDBBtn className='me-1'>
+            NEW VEHICLE
+          </MDBBtn>
+          </div>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Name' id='r11' type='text'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Model' id='r12' type='text'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Year' id='r13' type='number'/>
+          <p></p>
+          <MDBInput wrapperClass='mb-4' label='Brand' id='r14' type='text'/>
+          <p></p>
 
-</MDBContainer>
+          <MDBBtn className="mb-4 w-100" onClick={onRegisterClick}>CREATE</MDBBtn>
+      </MDBTabsContent>
+    </MDBContainer>
+) 
+
 }
 
 export default NewVehicleComponent;
