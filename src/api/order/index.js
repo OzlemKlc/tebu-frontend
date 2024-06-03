@@ -1,6 +1,7 @@
 
 
 import { apiAddress } from "../api_config"
+import handle from "../error/index"
 
 
 function createOrder(orderType, vehicleId, addressId, orderNote, setState)
@@ -17,8 +18,17 @@ function createOrder(orderType, vehicleId, addressId, orderNote, setState)
             orderNote
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -30,8 +40,17 @@ function getCustomerOrders(count, pageIndex, setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -43,8 +62,17 @@ function getWorkerOrders(count, pageIndex, setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -61,8 +89,17 @@ function changeOrderStatus(orderId, orderStatus, setState)
             orderStatus
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 

@@ -1,6 +1,7 @@
 
 
 import { apiAddress } from "../api_config"
+import handle from "../error/index"
 
 
 function login(phone, password, setState)
@@ -15,9 +16,18 @@ function login(phone, password, setState)
             password: password
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data.user))
-    .then(() => window.setLoading(false));
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data.user), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
+    .finally(() => window.setLoading(false));
 }
 
 function logout(setState)
@@ -28,7 +38,16 @@ function logout(setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(data => setState(null))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(null), 
+        e => {
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -40,8 +59,17 @@ function getCurrentUser(setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data.user))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data.user), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -61,8 +89,17 @@ function register(password, phone, email, name, surname, setState)
             surname: surname
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data.user))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data.user), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 

@@ -15,14 +15,10 @@ function AddressList() {
   
     window.allAddresses = allAddresses;
   
-    const [pageIndex, setPageIndex] = useState(0);
-  
-    window.pageIndex = pageIndex;
   
     const getAddressesResponse = () => {
       getAddresses(setAddressesResponse);
   
-      setPageIndex(pageIndex+1);
     }
   
     useEffect(() => {
@@ -78,12 +74,6 @@ function AddressList() {
                       </>
                   }
               <p></p>
-              {
-                  shouldShowMoreButton &&
-                  <div style={{display: "flex", justifyContent: "center"}}>
-                              <MDBBtn onClick={getAddressesResponse}>Load More</MDBBtn>
-                  </div>
-              }
             
                   <p></p>
                   <p></p>

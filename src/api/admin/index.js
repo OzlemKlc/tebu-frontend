@@ -6,6 +6,7 @@
 
 import { apiAddress } from "../api_config"
 
+import handle from "../error/index"
 
 function createWorker(password, phoneNumber, email, name, surname, setState)
 {
@@ -22,8 +23,17 @@ function createWorker(password, phoneNumber, email, name, surname, setState)
             surname
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -35,8 +45,17 @@ function getStatistics(setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -49,8 +68,17 @@ function getWorkers(count, pageIndex, setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json() )
-    .then(data => {console.log("QQQQQQQQQQQ", data); setState(data)})
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 

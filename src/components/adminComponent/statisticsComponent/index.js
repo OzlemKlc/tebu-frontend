@@ -19,62 +19,101 @@ export const data = [
 function Statistics() {
     const [stats, setStats] = useState(null);
 
+    window.stats = stats;
 
     useEffect(() => {
       getStatistics(setStats);
+
     }, [])
+
+    const [brandStats, setBrandStats] = useState([]);
+    const [yearStats, setYearStats] = useState([]);
+
+    useEffect(() => {
+      if(stats == null)
+        return
+
+      let bs = stats.brandCounts.map((e) => {
+        console.log([e.name, e.count])
+        return [e.name, e.count]
+      });
+
+      bs = [["Brand", "Amount"], ...bs];
+
+      let ys = stats.modelYearCounts.map((e) => {
+        return [e.name, e.count]
+      });
+
+      ys = [["Year", "Amount"], ...ys]
+
+
+      setBrandStats(bs)
+      setYearStats(ys)
+
+
+    }, [stats])
 
 
     return stats == null ? null : (
          <>
 
               <p></p>
-              <div style={{display: "flex", justifyContent: "center"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                          <MDBBtnGroup toolbar role='toolbar' aria-label='Toolbar with button groups'>
+                            <MDBBtnGroup aria-label='First Group'>
+                              <MDBBtn>Succesful Order Counts</MDBBtn>
+                            </MDBBtnGroup>
+                          </MDBBtnGroup>
+                    </div>
+                <p></p>
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    
                     <MDBBtnGroup toolbar role='toolbar' aria-label='Toolbar with button groups'>
-                      <MDBBtnGroup className='me-5' aria-label='First Group'>
-                        <MDBBtn>Daily Successful Order Count: {stats.todaySuccessfulOrders}</MDBBtn>
+                      <MDBBtnGroup className='me-1' aria-label='First Group'>
+                        <MDBBtn>Daily: {stats.todaySuccessfulOrders}</MDBBtn>
                       </MDBBtnGroup>
-                      <MDBBtnGroup className='me-5' aria-label='Second Group'>
-                        <MDBBtn>Weekly Successful Order Count: {stats.weeklySuccessfulOrders}</MDBBtn>
+                      <MDBBtnGroup className='me-1' aria-label='Second Group'>
+                        <MDBBtn>Weekly: {stats.weeklySuccessfulOrders}</MDBBtn>
                       </MDBBtnGroup>
-                      <MDBBtnGroup className='me-5' aria-label='Third Group'>
-                        <MDBBtn>Monthly Order Count: {stats.monthlySuccessfulOrders}</MDBBtn>
+                      <MDBBtnGroup className='me-1' aria-label='Third Group'>
+                        <MDBBtn>Monthly: {stats.monthlySuccessfulOrders}</MDBBtn>
                       </MDBBtnGroup>
                     </MDBBtnGroup>
               </div>
               <p></p>
               <p></p>
-              <p></p>
-              <div style={{display: "flex", justifyContent: "center"}}>
+              <div style={{display: "flex", marginTop: "50px", justifyContent: "center"}}>
                     <MDBBtnGroup toolbar role='toolbar' aria-label='Toolbar with button groups'>
                       <MDBBtnGroup aria-label='First Group'>
-                        <MDBBtn>Average Delivery In Hours: {stats.avarageDeliveryInHours}</MDBBtn>
+                        <MDBBtn>Average Delivery In Hours: {stats.avarageDeliveryInHours.toFixed(2)}</MDBBtn>
                       </MDBBtnGroup>
                     </MDBBtnGroup>
               </div>
               <p></p>
-                {stats.brandCounts.length > 0 && <Chart
-                chartType="PieChart"
-                data={stats.brandCounts.map((e) => {
-                  return [e.name, e.count]
-                })}
-                options={{
-                    title: "Brand Statistics",
-                  }}
-                width={"100%"}
-                height={"400px"}
-                />}
-                {stats.modelYearCounts.length > 0 && <Chart
-                chartType="PieChart"
-                data={stats.modelYearCounts.map((e) => {
-                  return [e.name, e.count]
-                })}
-                options={{
-                    title: "Model Year Statistics",
-                  }}
-                width={"100%"}
-                height={"400px"}
-                />}
+              <div  style={{marginRight:"-250px"}}>
+                {<Chart
+                  chartType="PieChart"
+                  data={brandStats}
+                  options={{
+                      title: "Brand Statistics",
+                      is3D: true,
+                      backgroundColor: "transparent"
+                    }}
+                  width={"100%"}
+                  height={"400px"}
+                  />}
+                  { <Chart
+                  chartType="PieChart"
+                  data={yearStats}
+                  options={{
+                      title: "Brand Statistics",
+                      is3D: true,
+                      backgroundColor: "transparent"
+                    }}
+                  width={"100%"}
+                  height={"400px"}
+                  />}
+              </div>
         </>
     ) 
 

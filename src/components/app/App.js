@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie'
 import {PacmanLoader, ClimbingBoxLoader, HashLoader}  from "react-spinners";
 import Overlay from '@uiw/react-overlay';
-
+import { ReactNotifications, Store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 import * as sessionApi from "../../api/session/index"
-
 
 const overrideCss = {
   display: "block",
@@ -37,12 +37,33 @@ function App() {
       setLoaderCount(loaderCount+1);
   }
 
+  window.alertError = (messages) => {
+    messages.forEach(message => {
+      Store.addNotification({
+        title: message,
+        message: "",
+        type: "default",
+        insert: "top",
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3500,
+          onScreen: true
+        }
+      });
+    });
+
+    
+  }
+
   return (
     <>
+    <ReactNotifications />
     {userInfo == undefined ? <Login></Login> : (
       <MainPage></MainPage>
     )}
-    <Overlay
+    <Overlay key={loading}
         hasBackdrop={true}
         isOpen={loading}
         onClose={() => false}

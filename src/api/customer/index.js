@@ -2,6 +2,7 @@
 
 import { apiAddress } from "../api_config"
 
+import handle from "../error/index"
 
 function addAddress(name, fullAddress, city, district, setState)
 {
@@ -17,8 +18,17 @@ function addAddress(name, fullAddress, city, district, setState)
             district: district
         })
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -36,8 +46,17 @@ function addVehicle(name, model, year, brand, setState)
             brand: brand
         })
     })
-    .then(response => {console.log(response); return response.json();})
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -50,8 +69,17 @@ function getAddresses(setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 
@@ -63,8 +91,17 @@ function getVehicles(setState)
         credentials: "include",
         headers: { "Content-Type":"application/json" }
     })
-    .then(response => response.json())
-    .then(data => setState(data))
+    .then(response => {
+        if(!response.ok)
+            throw response
+        return response.json()
+    })
+    .then(
+        data => setState(data), 
+        e => {
+            console.log("bbbbb", e);
+            e.json().then(data => handle(data));
+        })
     .then(() => window.setLoading(false));
 }
 

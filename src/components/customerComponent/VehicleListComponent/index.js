@@ -14,14 +14,10 @@ function VehicleList() {
   
     window.allVehicles = allVehicles;
   
-    const [pageIndex, setPageIndex] = useState(0);
-  
-    window.pageIndex = pageIndex;
   
     const getVehiclesResponse = () => {
       getVehicles(setVehiclesResponse);
   
-      setPageIndex(pageIndex+1);
     }
   
     useEffect(() => {
@@ -77,13 +73,6 @@ function VehicleList() {
                       </>
                   }
               <p></p>
-              {
-                  shouldShowMoreButton &&
-                  <div style={{display: "flex", justifyContent: "center"}}>
-                              <MDBBtn onClick={getVehiclesResponse}>Load More</MDBBtn>
-                  </div>
-              }
-            
                   <p></p>
                   <p></p>
               </>

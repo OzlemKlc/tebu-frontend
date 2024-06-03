@@ -55,7 +55,7 @@ export default function OrderPage() {
                     <MDBCol className="mb-1">
                         <p className="small text-muted mb-1">Valet</p>
                         {
-                          window.currentOrder.worker == undefined ? <><p>Waiting<br/>Please change status to take charge of this order.</p></> :
+                          window.currentOrder.worker == undefined ? <><p>Waiting<br/></p></> :
                           <p>{window.currentOrder.worker.name + " " + window.currentOrder.worker.surname}<br/>{window.currentOrder.worker.phoneNumber}</p>
                         }
                     </MDBCol>
