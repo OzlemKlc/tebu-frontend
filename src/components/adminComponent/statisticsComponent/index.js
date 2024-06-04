@@ -105,7 +105,7 @@ function Statistics() {
                   chartType="PieChart"
                   data={yearStats}
                   options={{
-                      title: "Brand Statistics",
+                      title: "Year Statistics",
                       is3D: true,
                       backgroundColor: "transparent"
                     }}
