@@ -26,7 +26,6 @@ function addAddress(name, fullAddress, city, district, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -54,7 +53,6 @@ function addVehicle(name, model, year, brand, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -63,7 +61,6 @@ function addVehicle(name, model, year, brand, setState)
 function getAddresses(setState)
 {
     window.setLoading(true);
-    console.log("AAAAAAAAAAAAEEEEE",setState)
     fetch(apiAddress + "/api/Costumer/get-addresses", {
         method: "GET",
         credentials: "include",
@@ -77,7 +74,6 @@ function getAddresses(setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -99,7 +95,6 @@ function getVehicles(setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));

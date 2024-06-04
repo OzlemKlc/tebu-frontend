@@ -1,3 +1,3 @@
 
 
-export const apiAddress = "https://localhost:7209";
+export const apiAddress = "https://eucc2x43qx.eu-central-1.awsapprunner.com";

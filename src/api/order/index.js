@@ -26,7 +26,6 @@ function createOrder(orderType, vehicleId, addressId, orderNote, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -48,7 +47,6 @@ function getCustomerOrders(count, pageIndex, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -70,7 +68,6 @@ function getWorkerOrders(count, pageIndex, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -97,7 +94,6 @@ function changeOrderStatus(orderId, orderStatus, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));

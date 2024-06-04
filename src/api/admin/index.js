@@ -31,7 +31,6 @@ function createWorker(password, phoneNumber, email, name, surname, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -53,7 +52,6 @@ function getStatistics(setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -62,7 +60,6 @@ function getStatistics(setState)
 function getWorkers(count, pageIndex, setState)
 {
     window.setLoading(true);
-    console.log("FUCK", apiAddress + "/api/Admin/get-workers?count=" + count +"&pageIndex=" + pageIndex);
     fetch(apiAddress + "/api/Admin/get-workers?count=" + count +"&pageIndex=" + pageIndex, {
         method: "GET",
         credentials: "include",
@@ -76,7 +73,6 @@ function getWorkers(count, pageIndex, setState)
     .then(
         data => setState(data), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));

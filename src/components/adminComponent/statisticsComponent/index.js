@@ -34,7 +34,6 @@ function Statistics() {
         return
 
       let bs = stats.brandCounts.map((e) => {
-        console.log([e.name, e.count])
         return [e.name, e.count]
       });
 

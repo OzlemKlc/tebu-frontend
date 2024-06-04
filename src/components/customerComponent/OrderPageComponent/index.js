@@ -27,7 +27,6 @@ export default function OrderPage() {
   const [randomKey,setRandomKey] = useState(1);
 
   const changestatusButton = (data) => {
-    console.log("ééééééééééééééééé", data);
 
 
     window.currentOrder = data;

@@ -24,7 +24,6 @@ function login(phone, password, setState)
     .then(
         data => setState(data.user), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .finally(() => window.setLoading(false));
@@ -41,7 +40,7 @@ function logout(setState)
     .then(response => {
         if(!response.ok)
             throw response
-        return response.json()
+        return null;
     })
     .then(
         data => setState(null), 
@@ -67,7 +66,6 @@ function getCurrentUser(setState)
     .then(
         data => setState(data.user), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
@@ -97,7 +95,6 @@ function register(password, phone, email, name, surname, setState)
     .then(
         data => setState(data.user), 
         e => {
-            console.log("bbbbb", e);
             e.json().then(data => handle(data));
         })
     .then(() => window.setLoading(false));
